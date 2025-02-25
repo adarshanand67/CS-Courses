@@ -1,0 +1,28 @@
+Lexical Analysis
+
+Due : 25th January, 2023
+_abcd
+Design a lexical analyzer using Flex to accept the tokens mentioned below.
+
+The designed lexical analyzer is expected to print the token names on the con-
+sole. The analyzer should remove white spaces from the input code, ignore the
+ignore the
+
+text within comments (anything enclosed within /* */) and recognize the token.
+The description of the lexeme patterns are the following
+ Identifier : A string starting with an underscore or a letter and followed
+by any number of underscores, letters and digits.
+ Keywords : short, float, double, bool, char, signed, unsigned, for, while,
+do, return, void, switch, break, case, continue, goto, long, static, union,
+default, class, public, private, protected
+ Integer constants: 12, 0, 3456, -234, etc.
+ Floating point constant: 1.2, 4.25, -0.35, etc.
+ Arithmetic operators: =, + =, − =, ∗ =, / =
+ Relational operators: <, >, <=, >=, ==
+ Special symbols: ;, (, ), comma, [, ], {, }
+After identifying the identifiers, the lexical analyzer should insert them into a
+symbol table. The symbol table should contain the entry for each variable only
+once. Note that only variable names will be kept in the symbol table. Also,
+show an error if the length of a variable is more than 31 characters.
+
+characterscharacterscharacterscharacterscharacterscharacterscharacterscharacterscharacterscharacterscharacters

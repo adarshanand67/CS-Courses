@@ -1,0 +1,1453 @@
+State 17 conflicts: 4 shift/reduce
+State 19 conflicts: 8 shift/reduce
+State 28 conflicts: 8 shift/reduce, 1 reduce/reduce
+State 33 conflicts: 4 shift/reduce
+State 60 conflicts: 2 shift/reduce
+State 80 conflicts: 2 shift/reduce
+State 81 conflicts: 2 shift/reduce
+State 82 conflicts: 8 shift/reduce
+State 83 conflicts: 8 shift/reduce
+State 95 conflicts: 8 shift/reduce
+State 99 conflicts: 8 shift/reduce
+State 105 conflicts: 8 shift/reduce
+State 109 conflicts: 8 shift/reduce
+
+
+Grammar
+
+    0 $accept: prog $end
+
+    1 prog: funcDef
+
+    2 funcDef: type ID '(' argList ')' '{' declList stmtList '}'
+
+    3 argList: arg ',' arg
+    4        | ε
+
+    5 arg: type ID
+
+    6 declList: decl SEMICOLON declList
+    7         | ε
+
+    8 decl: type varList
+
+    9 varList: ID COMMA varList
+   10        | ID
+
+   11 type: INT
+   12     | FLOAT
+   13     | CHAR
+   14     | BOOLEAN
+
+   15 stmtList: stmt stmtList
+   16         | stmt
+
+   17 stmt: assignStmt
+   18     | ifStmt
+   19     | whileStmt
+   20     | forStmt
+   21     | ε
+
+   22 assignStmt: ID ASSIGN EXP SEMICOLON
+   23           | type ID ASSIGN EXP SEMICOLON
+
+   24 EXP: EXP '+' TERM
+   25    | EXP '-' TERM
+   26    | TERM
+
+   27 TERM: TERM '*' FACTOR
+   28     | TERM '/' FACTOR
+   29     | FACTOR
+
+   30 FACTOR: ID
+   31       | INTEGER_CONSTANT
+   32       | FLOAT_CONSTANT
+   33       | CHAR_CONSTANT
+   34       | '(' EXP ')'
+
+   35 ifStmt: IF '(' bExp ')' '{' stmtList '}'
+   36       | IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   37       | IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+   38 bExp: EXP RELOP EXP
+   39     | bExp AND bExp
+   40     | bExp OR bExp
+   41     | NOT bExp
+
+   42 whileStmt: WHILE '(' bExp ')' '{' stmtList '}'
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}'
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 2 34 35 36 37 42 43
+    ')' (41) 2 34 35 36 37 42 43
+    '*' (42) 27
+    '+' (43) 24
+    ',' (44) 3
+    '-' (45) 25
+    '/' (47) 28
+    '{' (123) 2 35 36 37 42 43
+    '}' (125) 2 35 36 37 42 43
+    error (256)
+    INT (258) 11
+    FLOAT (259) 12
+    CHAR (260) 13
+    SEMICOLON (261) 6 22 23 43
+    COMMA (262) 9
+    ASSIGN (263) 22 23 43
+    IF (264) 35 36 37
+    ELSE (265) 36 37
+    AND (266) 39
+    OR (267) 40
+    NOT (268) 41
+    WHILE (269) 42
+    RELOP (270) 38
+    BOOLEAN (271) 14
+    INTEGER_CONSTANT (272) 31
+    FLOAT_CONSTANT (273) 32
+    CHAR_CONSTANT (274) 33
+    FOR (275) 43
+    ID <str> (276) 2 5 9 10 22 23 30 43
+
+
+Nonterminals, with rules where they appear
+
+    $accept (31)
+        on left: 0
+    prog (32)
+        on left: 1
+        on right: 0
+    funcDef (33)
+        on left: 2
+        on right: 1
+    argList (34)
+        on left: 3 4
+        on right: 2
+    arg (35)
+        on left: 5
+        on right: 3
+    declList (36)
+        on left: 6 7
+        on right: 2 6
+    decl (37)
+        on left: 8
+        on right: 6
+    varList (38)
+        on left: 9 10
+        on right: 8 9
+    type (39)
+        on left: 11 12 13 14
+        on right: 2 5 8 23
+    stmtList (40)
+        on left: 15 16
+        on right: 2 15 35 36 37 42 43
+    stmt (41)
+        on left: 17 18 19 20 21
+        on right: 15 16
+    assignStmt (42)
+        on left: 22 23
+        on right: 17 43
+    EXP <type> (43)
+        on left: 24 25 26
+        on right: 22 23 24 25 34 38 43
+    TERM <type> (44)
+        on left: 27 28 29
+        on right: 24 25 26 27 28
+    FACTOR <type> (45)
+        on left: 30 31 32 33 34
+        on right: 27 28 29
+    ifStmt (46)
+        on left: 35 36 37
+        on right: 18
+    bExp (47)
+        on left: 38 39 40 41
+        on right: 35 36 37 39 40 41 42 43
+    whileStmt (48)
+        on left: 42
+        on right: 19
+    forStmt (49)
+        on left: 43
+        on right: 20
+
+
+State 0
+
+    0 $accept: • prog $end
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+
+    prog     go to state 5
+    funcDef  go to state 6
+    type     go to state 7
+
+
+State 1
+
+   11 type: INT •
+
+    $default  reduce using rule 11 (type)
+
+
+State 2
+
+   12 type: FLOAT •
+
+    $default  reduce using rule 12 (type)
+
+
+State 3
+
+   13 type: CHAR •
+
+    $default  reduce using rule 13 (type)
+
+
+State 4
+
+   14 type: BOOLEAN •
+
+    $default  reduce using rule 14 (type)
+
+
+State 5
+
+    0 $accept: prog • $end
+
+    $end  shift, and go to state 8
+
+
+State 6
+
+    1 prog: funcDef •
+
+    $default  reduce using rule 1 (prog)
+
+
+State 7
+
+    2 funcDef: type • ID '(' argList ')' '{' declList stmtList '}'
+
+    ID  shift, and go to state 9
+
+
+State 8
+
+    0 $accept: prog $end •
+
+    $default  accept
+
+
+State 9
+
+    2 funcDef: type ID • '(' argList ')' '{' declList stmtList '}'
+
+    '('  shift, and go to state 10
+
+
+State 10
+
+    2 funcDef: type ID '(' • argList ')' '{' declList stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+
+    $default  reduce using rule 4 (argList)
+
+    argList  go to state 11
+    arg      go to state 12
+    type     go to state 13
+
+
+State 11
+
+    2 funcDef: type ID '(' argList • ')' '{' declList stmtList '}'
+
+    ')'  shift, and go to state 14
+
+
+State 12
+
+    3 argList: arg • ',' arg
+
+    ','  shift, and go to state 15
+
+
+State 13
+
+    5 arg: type • ID
+
+    ID  shift, and go to state 16
+
+
+State 14
+
+    2 funcDef: type ID '(' argList ')' • '{' declList stmtList '}'
+
+    '{'  shift, and go to state 17
+
+
+State 15
+
+    3 argList: arg ',' • arg
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+
+    arg   go to state 18
+    type  go to state 13
+
+
+State 16
+
+    5 arg: type ID •
+
+    $default  reduce using rule 5 (arg)
+
+
+State 17
+
+    2 funcDef: type ID '(' argList ')' '{' • declList stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+
+    INT       [reduce using rule 7 (declList)]
+    FLOAT     [reduce using rule 7 (declList)]
+    CHAR      [reduce using rule 7 (declList)]
+    BOOLEAN   [reduce using rule 7 (declList)]
+    $default  reduce using rule 7 (declList)
+
+    declList  go to state 19
+    decl      go to state 20
+    type      go to state 21
+
+
+State 18
+
+    3 argList: arg ',' arg •
+
+    $default  reduce using rule 3 (argList)
+
+
+State 19
+
+    2 funcDef: type ID '(' argList ')' '{' declList • stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 27
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 20
+
+    6 declList: decl • SEMICOLON declList
+
+    SEMICOLON  shift, and go to state 33
+
+
+State 21
+
+    8 decl: type • varList
+
+    ID  shift, and go to state 34
+
+    varList  go to state 35
+
+
+State 22
+
+   35 ifStmt: IF • '(' bExp ')' '{' stmtList '}'
+   36       | IF • '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   37       | IF • '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    '('  shift, and go to state 36
+
+
+State 23
+
+   42 whileStmt: WHILE • '(' bExp ')' '{' stmtList '}'
+
+    '('  shift, and go to state 37
+
+
+State 24
+
+   43 forStmt: FOR • '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}'
+
+    '('  shift, and go to state 38
+
+
+State 25
+
+   22 assignStmt: ID • ASSIGN EXP SEMICOLON
+
+    ASSIGN  shift, and go to state 39
+
+
+State 26
+
+   23 assignStmt: type • ID ASSIGN EXP SEMICOLON
+
+    ID  shift, and go to state 40
+
+
+State 27
+
+    2 funcDef: type ID '(' argList ')' '{' declList stmtList • '}'
+
+    '}'  shift, and go to state 41
+
+
+State 28
+
+   15 stmtList: stmt • stmtList
+   16         | stmt •
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    '}'       reduce using rule 16 (stmtList)
+    '}'       [reduce using rule 21 (stmt)]
+    $default  reduce using rule 16 (stmtList)
+
+    type        go to state 26
+    stmtList    go to state 42
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 29
+
+   17 stmt: assignStmt •
+
+    $default  reduce using rule 17 (stmt)
+
+
+State 30
+
+   18 stmt: ifStmt •
+
+    $default  reduce using rule 18 (stmt)
+
+
+State 31
+
+   19 stmt: whileStmt •
+
+    $default  reduce using rule 19 (stmt)
+
+
+State 32
+
+   20 stmt: forStmt •
+
+    $default  reduce using rule 20 (stmt)
+
+
+State 33
+
+    6 declList: decl SEMICOLON • declList
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+
+    INT       [reduce using rule 7 (declList)]
+    FLOAT     [reduce using rule 7 (declList)]
+    CHAR      [reduce using rule 7 (declList)]
+    BOOLEAN   [reduce using rule 7 (declList)]
+    $default  reduce using rule 7 (declList)
+
+    declList  go to state 43
+    decl      go to state 20
+    type      go to state 21
+
+
+State 34
+
+    9 varList: ID • COMMA varList
+   10        | ID •
+
+    COMMA  shift, and go to state 44
+
+    $default  reduce using rule 10 (varList)
+
+
+State 35
+
+    8 decl: type varList •
+
+    $default  reduce using rule 8 (decl)
+
+
+State 36
+
+   35 ifStmt: IF '(' • bExp ')' '{' stmtList '}'
+   36       | IF '(' • bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   37       | IF '(' • bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 54
+
+
+State 37
+
+   42 whileStmt: WHILE '(' • bExp ')' '{' stmtList '}'
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 55
+
+
+State 38
+
+   43 forStmt: FOR '(' • assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    BOOLEAN  shift, and go to state 4
+    ID       shift, and go to state 25
+
+    type        go to state 26
+    assignStmt  go to state 56
+
+
+State 39
+
+   22 assignStmt: ID ASSIGN • EXP SEMICOLON
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 57
+    TERM    go to state 52
+    FACTOR  go to state 53
+
+
+State 40
+
+   23 assignStmt: type ID • ASSIGN EXP SEMICOLON
+
+    ASSIGN  shift, and go to state 58
+
+
+State 41
+
+    2 funcDef: type ID '(' argList ')' '{' declList stmtList '}' •
+
+    $default  reduce using rule 2 (funcDef)
+
+
+State 42
+
+   15 stmtList: stmt stmtList •
+
+    $default  reduce using rule 15 (stmtList)
+
+
+State 43
+
+    6 declList: decl SEMICOLON declList •
+
+    $default  reduce using rule 6 (declList)
+
+
+State 44
+
+    9 varList: ID COMMA • varList
+
+    ID  shift, and go to state 34
+
+    varList  go to state 59
+
+
+State 45
+
+   41 bExp: NOT • bExp
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 60
+
+
+State 46
+
+   31 FACTOR: INTEGER_CONSTANT •
+
+    $default  reduce using rule 31 (FACTOR)
+
+
+State 47
+
+   32 FACTOR: FLOAT_CONSTANT •
+
+    $default  reduce using rule 32 (FACTOR)
+
+
+State 48
+
+   33 FACTOR: CHAR_CONSTANT •
+
+    $default  reduce using rule 33 (FACTOR)
+
+
+State 49
+
+   30 FACTOR: ID •
+
+    $default  reduce using rule 30 (FACTOR)
+
+
+State 50
+
+   34 FACTOR: '(' • EXP ')'
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 61
+    TERM    go to state 52
+    FACTOR  go to state 53
+
+
+State 51
+
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+   38 bExp: EXP • RELOP EXP
+
+    RELOP  shift, and go to state 62
+    '+'    shift, and go to state 63
+    '-'    shift, and go to state 64
+
+
+State 52
+
+   26 EXP: TERM •
+   27 TERM: TERM • '*' FACTOR
+   28     | TERM • '/' FACTOR
+
+    '*'  shift, and go to state 65
+    '/'  shift, and go to state 66
+
+    $default  reduce using rule 26 (EXP)
+
+
+State 53
+
+   29 TERM: FACTOR •
+
+    $default  reduce using rule 29 (TERM)
+
+
+State 54
+
+   35 ifStmt: IF '(' bExp • ')' '{' stmtList '}'
+   36       | IF '(' bExp • ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   37       | IF '(' bExp • ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    ')'  shift, and go to state 69
+
+
+State 55
+
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+   42 whileStmt: WHILE '(' bExp • ')' '{' stmtList '}'
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    ')'  shift, and go to state 70
+
+
+State 56
+
+   43 forStmt: FOR '(' assignStmt • bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}'
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 71
+
+
+State 57
+
+   22 assignStmt: ID ASSIGN EXP • SEMICOLON
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+
+    SEMICOLON  shift, and go to state 72
+    '+'        shift, and go to state 63
+    '-'        shift, and go to state 64
+
+
+State 58
+
+   23 assignStmt: type ID ASSIGN • EXP SEMICOLON
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 73
+    TERM    go to state 52
+    FACTOR  go to state 53
+
+
+State 59
+
+    9 varList: ID COMMA varList •
+
+    $default  reduce using rule 9 (varList)
+
+
+State 60
+
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+   41     | NOT bExp •
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+
+    AND       [reduce using rule 41 (bExp)]
+    OR        [reduce using rule 41 (bExp)]
+    $default  reduce using rule 41 (bExp)
+
+
+State 61
+
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+   34 FACTOR: '(' EXP • ')'
+
+    '+'  shift, and go to state 63
+    '-'  shift, and go to state 64
+    ')'  shift, and go to state 74
+
+
+State 62
+
+   38 bExp: EXP RELOP • EXP
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 75
+    TERM    go to state 52
+    FACTOR  go to state 53
+
+
+State 63
+
+   24 EXP: EXP '+' • TERM
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    TERM    go to state 76
+    FACTOR  go to state 53
+
+
+State 64
+
+   25 EXP: EXP '-' • TERM
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    TERM    go to state 77
+    FACTOR  go to state 53
+
+
+State 65
+
+   27 TERM: TERM '*' • FACTOR
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    FACTOR  go to state 78
+
+
+State 66
+
+   28 TERM: TERM '/' • FACTOR
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    FACTOR  go to state 79
+
+
+State 67
+
+   39 bExp: bExp AND • bExp
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 80
+
+
+State 68
+
+   40 bExp: bExp OR • bExp
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 81
+
+
+State 69
+
+   35 ifStmt: IF '(' bExp ')' • '{' stmtList '}'
+   36       | IF '(' bExp ')' • '{' stmtList '}' ELSE '{' stmtList '}'
+   37       | IF '(' bExp ')' • '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    '{'  shift, and go to state 82
+
+
+State 70
+
+   42 whileStmt: WHILE '(' bExp ')' • '{' stmtList '}'
+
+    '{'  shift, and go to state 83
+
+
+State 71
+
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+   43 forStmt: FOR '(' assignStmt bExp • SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}'
+
+    SEMICOLON  shift, and go to state 84
+    AND        shift, and go to state 67
+    OR         shift, and go to state 68
+
+
+State 72
+
+   22 assignStmt: ID ASSIGN EXP SEMICOLON •
+
+    $default  reduce using rule 22 (assignStmt)
+
+
+State 73
+
+   23 assignStmt: type ID ASSIGN EXP • SEMICOLON
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+
+    SEMICOLON  shift, and go to state 85
+    '+'        shift, and go to state 63
+    '-'        shift, and go to state 64
+
+
+State 74
+
+   34 FACTOR: '(' EXP ')' •
+
+    $default  reduce using rule 34 (FACTOR)
+
+
+State 75
+
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+   38 bExp: EXP RELOP EXP •
+
+    '+'  shift, and go to state 63
+    '-'  shift, and go to state 64
+
+    $default  reduce using rule 38 (bExp)
+
+
+State 76
+
+   24 EXP: EXP '+' TERM •
+   27 TERM: TERM • '*' FACTOR
+   28     | TERM • '/' FACTOR
+
+    '*'  shift, and go to state 65
+    '/'  shift, and go to state 66
+
+    $default  reduce using rule 24 (EXP)
+
+
+State 77
+
+   25 EXP: EXP '-' TERM •
+   27 TERM: TERM • '*' FACTOR
+   28     | TERM • '/' FACTOR
+
+    '*'  shift, and go to state 65
+    '/'  shift, and go to state 66
+
+    $default  reduce using rule 25 (EXP)
+
+
+State 78
+
+   27 TERM: TERM '*' FACTOR •
+
+    $default  reduce using rule 27 (TERM)
+
+
+State 79
+
+   28 TERM: TERM '/' FACTOR •
+
+    $default  reduce using rule 28 (TERM)
+
+
+State 80
+
+   39 bExp: bExp • AND bExp
+   39     | bExp AND bExp •
+   40     | bExp • OR bExp
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+
+    AND       [reduce using rule 39 (bExp)]
+    OR        [reduce using rule 39 (bExp)]
+    $default  reduce using rule 39 (bExp)
+
+
+State 81
+
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+   40     | bExp OR bExp •
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+
+    AND       [reduce using rule 40 (bExp)]
+    OR        [reduce using rule 40 (bExp)]
+    $default  reduce using rule 40 (bExp)
+
+
+State 82
+
+   35 ifStmt: IF '(' bExp ')' '{' • stmtList '}'
+   36       | IF '(' bExp ')' '{' • stmtList '}' ELSE '{' stmtList '}'
+   37       | IF '(' bExp ')' '{' • stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 86
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 83
+
+   42 whileStmt: WHILE '(' bExp ')' '{' • stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 87
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 84
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON • ID ASSIGN EXP ')' '{' stmtList '}'
+
+    ID  shift, and go to state 88
+
+
+State 85
+
+   23 assignStmt: type ID ASSIGN EXP SEMICOLON •
+
+    $default  reduce using rule 23 (assignStmt)
+
+
+State 86
+
+   35 ifStmt: IF '(' bExp ')' '{' stmtList • '}'
+   36       | IF '(' bExp ')' '{' stmtList • '}' ELSE '{' stmtList '}'
+   37       | IF '(' bExp ')' '{' stmtList • '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    '}'  shift, and go to state 89
+
+
+State 87
+
+   42 whileStmt: WHILE '(' bExp ')' '{' stmtList • '}'
+
+    '}'  shift, and go to state 90
+
+
+State 88
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID • ASSIGN EXP ')' '{' stmtList '}'
+
+    ASSIGN  shift, and go to state 91
+
+
+State 89
+
+   35 ifStmt: IF '(' bExp ')' '{' stmtList '}' •
+   36       | IF '(' bExp ')' '{' stmtList '}' • ELSE '{' stmtList '}'
+   37       | IF '(' bExp ')' '{' stmtList '}' • ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    ELSE  shift, and go to state 92
+
+    $default  reduce using rule 35 (ifStmt)
+
+
+State 90
+
+   42 whileStmt: WHILE '(' bExp ')' '{' stmtList '}' •
+
+    $default  reduce using rule 42 (whileStmt)
+
+
+State 91
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN • EXP ')' '{' stmtList '}'
+
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 93
+    TERM    go to state 52
+    FACTOR  go to state 53
+
+
+State 92
+
+   36 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE • '{' stmtList '}'
+   37       | IF '(' bExp ')' '{' stmtList '}' ELSE • IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    IF   shift, and go to state 94
+    '{'  shift, and go to state 95
+
+
+State 93
+
+   24 EXP: EXP • '+' TERM
+   25    | EXP • '-' TERM
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP • ')' '{' stmtList '}'
+
+    '+'  shift, and go to state 63
+    '-'  shift, and go to state 64
+    ')'  shift, and go to state 96
+
+
+State 94
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF • '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    '('  shift, and go to state 97
+
+
+State 95
+
+   36 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE '{' • stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 98
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 96
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' • '{' stmtList '}'
+
+    '{'  shift, and go to state 99
+
+
+State 97
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' • bExp ')' '{' stmtList '}' ELSE '{' stmtList '}'
+
+    NOT               shift, and go to state 45
+    INTEGER_CONSTANT  shift, and go to state 46
+    FLOAT_CONSTANT    shift, and go to state 47
+    CHAR_CONSTANT     shift, and go to state 48
+    ID                shift, and go to state 49
+    '('               shift, and go to state 50
+
+    EXP     go to state 51
+    TERM    go to state 52
+    FACTOR  go to state 53
+    bExp    go to state 100
+
+
+State 98
+
+   36 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList • '}'
+
+    '}'  shift, and go to state 101
+
+
+State 99
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' • stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 102
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 100
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp • ')' '{' stmtList '}' ELSE '{' stmtList '}'
+   39 bExp: bExp • AND bExp
+   40     | bExp • OR bExp
+
+    AND  shift, and go to state 67
+    OR   shift, and go to state 68
+    ')'  shift, and go to state 103
+
+
+State 101
+
+   36 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}' •
+
+    $default  reduce using rule 36 (ifStmt)
+
+
+State 102
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList • '}'
+
+    '}'  shift, and go to state 104
+
+
+State 103
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' • '{' stmtList '}' ELSE '{' stmtList '}'
+
+    '{'  shift, and go to state 105
+
+
+State 104
+
+   43 forStmt: FOR '(' assignStmt bExp SEMICOLON ID ASSIGN EXP ')' '{' stmtList '}' •
+
+    $default  reduce using rule 43 (forStmt)
+
+
+State 105
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' • stmtList '}' ELSE '{' stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 106
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 106
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList • '}' ELSE '{' stmtList '}'
+
+    '}'  shift, and go to state 107
+
+
+State 107
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' • ELSE '{' stmtList '}'
+
+    ELSE  shift, and go to state 108
+
+
+State 108
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE • '{' stmtList '}'
+
+    '{'  shift, and go to state 109
+
+
+State 109
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' • stmtList '}'
+
+    INT      shift, and go to state 1
+    FLOAT    shift, and go to state 2
+    CHAR     shift, and go to state 3
+    IF       shift, and go to state 22
+    WHILE    shift, and go to state 23
+    BOOLEAN  shift, and go to state 4
+    FOR      shift, and go to state 24
+    ID       shift, and go to state 25
+
+    INT       [reduce using rule 21 (stmt)]
+    FLOAT     [reduce using rule 21 (stmt)]
+    CHAR      [reduce using rule 21 (stmt)]
+    IF        [reduce using rule 21 (stmt)]
+    WHILE     [reduce using rule 21 (stmt)]
+    BOOLEAN   [reduce using rule 21 (stmt)]
+    FOR       [reduce using rule 21 (stmt)]
+    ID        [reduce using rule 21 (stmt)]
+    $default  reduce using rule 21 (stmt)
+
+    type        go to state 26
+    stmtList    go to state 110
+    stmt        go to state 28
+    assignStmt  go to state 29
+    ifStmt      go to state 30
+    whileStmt   go to state 31
+    forStmt     go to state 32
+
+
+State 110
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList • '}'
+
+    '}'  shift, and go to state 111
+
+
+State 111
+
+   37 ifStmt: IF '(' bExp ')' '{' stmtList '}' ELSE IF '(' bExp ')' '{' stmtList '}' ELSE '{' stmtList '}' •
+
+    $default  reduce using rule 37 (ifStmt)

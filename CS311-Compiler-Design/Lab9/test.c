@@ -1,0 +1,11 @@
+int main() {
+    int a, b;
+    a = 6;
+    b = 7;
+    if (a > b || b > a) {
+        a = a + 1;
+    } else {
+        a = a - 1;
+    }
+    a = a + 5;
+}

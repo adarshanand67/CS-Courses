@@ -1,0 +1,15 @@
+Flip Flops
+    D Flip Flop
+    T Flip Flop
+
+Sequence Detector
+    Moore
+        Sequential
+        Behavioural
+    Mealy
+        Sequential
+        Behavioural
+
+N-Bit Register
+    Shift Register
+    Bi-directional register
